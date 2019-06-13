@@ -1,0 +1,32 @@
+#########################################################################################################
+# Author: Kennashka DeSilva
+# mail@kennashka.com
+# June 13, 2019
+########################################################################################################
+
+---
+- hosts: addyourhost
+  remote_user: ubuntu
+  become: yes
+
+
+  vars:
+    github_email: "mail@gmail.com"
+    default_file_location: "\n"
+    secure_passphrase: "yourpassphrase"
+    
+
+  tasks:
+    - name: Generating your public/private rsa key pair
+      expect:
+        command: ssh-keygen -t rsa -b 4096 -C {{ github_email }}
+        responses:
+          'Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]': "{{ default_file_location }}"
+          'Enter passphrase (empty for no passphrase): [Type a passphrase]': "{{ secure_passphrase }}"
+          'Enter same passphrase again: [Type passphrase again]': "{{ secure_passphrase }}"
+
+    - name: Start the ssh-agent in the background.
+      command: eval "$(ssh-agent -s)"
+
+    - name: Adding your SSH private key to the ssh-agent and store your passphrase in the keychain. 
+      command: ssh-add -k ~/.ssh/id_rsa
