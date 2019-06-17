@@ -75,5 +75,5 @@ vim /root/.ssh/id_rsa.pub
 
 ## Run To Start 
 ```bash
-ansible-playbook -i ./hosts tasks/certbot.yml
+ansible-playbook -i ./hosts tasks/generate.yml
 ```
