@@ -21,8 +21,7 @@ sudo apt-get install ansible
 
 ```bash
 
-ansible-galaxy install 
-
+ansible-galaxy install kennashka.ansible_role_generate_github_key
 ```
 
 ## Configure Hosts File (Optional Way to Give Permissions for Accessing Server)
