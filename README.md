@@ -56,7 +56,7 @@ ssh-keygen -t rsa -b 4096 -C "youremail@gmail.com"
 [x] Start the ssh-agent in the background.
 
 ```bash
-eval "$(ssh-agent -s)"
+eval `ssh-agent`
 ```
 
 [x] ssh-add
