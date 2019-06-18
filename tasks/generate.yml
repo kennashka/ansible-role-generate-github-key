@@ -1,5 +1,5 @@
 #########################################################################################################
-# Author: Kennashka DeSilva
+# Author: Kennashka "python wizard" DeSilva 
 # mail@kennashka.com
 # June 13, 2019
 ########################################################################################################
@@ -21,15 +21,25 @@
       expect:
         command: ssh-keygen -t rsa -b 4096 -C {{ github_email }}
         responses:
-          'Enter file in which to save the key \(/home/ubuntu/.ssh/id_rsa\):': "{{ default_file_location }}"
-          'Enter passphrase \(empty for no passphrase\):': "{{ secure_passphrase }}"
-          'Enter same passphrase again:': "{{ secure_passphrase }}"
+          Enter file in which to save the key .*: "{{ default_file_location }}"
+          Enter passphrase .*: "{{ secure_passphrase }}"
+          Enter same passphrase .*: "{{ secure_passphrase }}"
+    
+    - name: Shell command please work
+      shell: |
+       set timeout 300
+       spawn eval `ssh-agent` \n ssh-add ~/.ssh/id_rsa
 
-    - name: Start the ssh-agent in the background.
-      command: eval "$(ssh-agent -s)"
+       expect "Enter passphrase for .*:"
+       send "{{ secure_passphrase }}\n"
 
-    - name: Adding your SSH private key to the ssh-agent and store your passphrase in the keychain. 
-      expect:
-        command: ssh-add -k ~/.ssh/id_rsa
-        responses:
-          'Enter passphrase for .* :': "{{ secure_passphrase }}"
+       exit 0
+
+
+          
+#########################################################################################################
+# THIS BLOCK IS FOR DEBUGGING
+#    - name: enable ssh-agent
+#      shell: echo "ssh-agent = $(ssh-agent)"
+#########################################################################################################
+
