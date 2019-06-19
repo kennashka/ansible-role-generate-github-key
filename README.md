@@ -46,6 +46,7 @@ ansible-galaxy install kennashka.ansible_role_generate_github_key
     secure_passphrase: "yourpassphrase"
  ```   
 ## Steps for execution:
+[x] Installation of pip and pexpect on targeted host machine
 
 [x] Run
 ```bash
