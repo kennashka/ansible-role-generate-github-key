@@ -17,6 +17,18 @@
     
 
   tasks:
+     - name: install python pip install
+      command: apt install python-pip -y
+
+    - name: install python3 pip install
+      command: apt install python3-pip -y
+
+    - name: Install pexpect
+      command: pip install pexpect
+
+    - name: Install pexpect for python3
+      command: pip3 install pexpect
+      
     - name: Generating public/private rsa key pair.
       expect:
         command: ssh-keygen -t rsa -b 4096 -C {{ github_email }}
