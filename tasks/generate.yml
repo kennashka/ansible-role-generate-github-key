@@ -18,34 +18,34 @@
 
   tasks:
      - name: install python pip install
-      command: apt install python-pip -y
+       command: apt install python-pip -y
 
-    - name: install python3 pip install
-      command: apt install python3-pip -y
+     - name: install python3 pip install
+       command: apt install python3-pip -y
 
-    - name: Install pexpect
-      command: pip install pexpect
+     - name: Install pexpect
+       command: pip install pexpect
 
-    - name: Install pexpect for python3
-      command: pip3 install pexpect
+     - name: Install pexpect for python3
+       command: pip3 install pexpect
       
-    - name: Generating public/private rsa key pair.
-      expect:
-        command: ssh-keygen -t rsa -b 4096 -C {{ github_email }}
-        responses:
-          Enter file in which to save the key .*: "{{ default_file_location }}"
-          Enter passphrase .*: "{{ secure_passphrase }}"
-          Enter same passphrase .*: "{{ secure_passphrase }}"
+     - name: Generating public/private rsa key pair.
+       expect:
+         command: ssh-keygen -t rsa -b 4096 -C {{ github_email }}
+         responses:
+           Enter file in which to save the key .*: "{{ default_file_location }}"
+           Enter passphrase .*: "{{ secure_passphrase }}"
+           Enter same passphrase .*: "{{ secure_passphrase }}"
     
-    - name: Shell command please work
-      shell: |
-       set timeout 300
-       spawn eval `ssh-agent` \n ssh-add ~/.ssh/id_rsa
+     - name: Shell command please work
+       shell: |
+        set timeout 300
+        spawn eval `ssh-agent` \n ssh-add ~/.ssh/id_rsa
 
-       expect "Enter passphrase for .*:"
-       send "{{ secure_passphrase }}\n"
+        expect "Enter passphrase for .*:"
+        send "{{ secure_passphrase }}\n"
 
-       exit 0
+        exit 0
 
 
           
